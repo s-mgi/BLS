@@ -1081,19 +1081,19 @@
       <div class="form-aside-item"><span class="form-aside-num">04.</span>Answers to every question — no pressure, no obligation</div>
     </div>
   </div>
-  <div class="demo-form reveal d1">
+  <form id="form" class="demo-form reveal d1">
     <div class="form-row">
-      <div class="form-group"><label>First Name</label><input type="text" placeholder="Jane" /></div>
-      <div class="form-group"><label>Last Name</label><input type="text" placeholder="Smith" /></div>
+      <div class="form-group"><label>First Name</label><input type="text" name="first_name" placeholder="Jane" required /></div>
+      <div class="form-group"><label>Last Name</label><input type="text" name="last_name" placeholder="Smith" required /></div>
     </div>
-    <div class="form-group"><label>Company / Builder Name</label><input type="text" placeholder="Smith Homes" /></div>
+    <div class="form-group"><label>Company / Builder Name</label><input type="text" name="company" placeholder="Smith Homes" required /></div>
     <div class="form-row">
-      <div class="form-group"><label>Email</label><input type="email" placeholder="jane@smithhomes.com" /></div>
-      <div class="form-group"><label>Phone</label><input type="tel" placeholder="+1 (416) 000-0000" /></div>
+      <div class="form-group"><label>Email</label><input type="email" name="email" placeholder="jane@smithhomes.com" required /></div>
+      <div class="form-group"><label>Phone</label><input type="tel" name="phone" placeholder="+1 (416) 000-0000" /></div>
     </div>
     <div class="form-group">
       <label>I Am A</label>
-      <select>
+      <select name="role">
         <option value="">Select your role</option>
         <option>New Home Builder</option>
         <option>Sales Manager / Director</option>
@@ -1105,7 +1105,7 @@
     </div>
     <div class="form-group">
       <label>Current ERP / System</label>
-      <select>
+      <select name="erp_system">
         <option value="">Select your ERP</option>
         <option>Builder Lynx</option>
         <option>QuickBooks</option>
@@ -1116,10 +1116,10 @@
     </div>
     <div class="form-group">
       <label>Tell Us About Your Project</label>
-      <textarea placeholder="Type of project, number of units, current pain points…"></textarea>
+      <textarea name="message" placeholder="Type of project, number of units, current pain points…"></textarea>
     </div>
-    <button class="form-submit">Book My Demo →</button>
-  </div>
+    <button type="submit" class="form-submit">Book My Demo →</button>
+  </form>
 </div>
 
 <!-- ══ FOOTER ══ -->
@@ -1164,6 +1164,36 @@
 
 <script>
   lucide.createIcons();
+
+  // ── DEMO FORM (Web3Forms) ──
+  const form = document.getElementById('form');
+  const submitBtn = form.querySelector('button[type="submit"]');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+    formData.append("access_key", "2c097101-21d6-4d7f-8241-474ade78d681");
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = "Sending...";
+    submitBtn.disabled = true;
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      });
+      const data = await response.json();
+      if (response.ok) {
+        alert("Success! Your message has been sent.");
+        form.reset();
+      } else {
+        alert("Error: " + data.message);
+      }
+    } catch (error) {
+      alert("Something went wrong. Please try again.");
+    } finally {
+      submitBtn.textContent = originalText;
+      submitBtn.disabled = false;
+    }
+  });
 
   const observer = new IntersectionObserver(
     entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }),
