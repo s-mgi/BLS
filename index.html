@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BLS — Builder Lynx Sales Solution | Powered by Simplii Sold</title>
+  <link rel="icon" href="favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,900&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy:  #07101f;
+      --n2:    #0c172b;
+      --n3:    #111f37;
+      --n4:    #162440;
+      --red:   #c8202e;
+      --red2:  #e02838;
+      --off:   #d8e2f4;
+      --muted: #6e7f9c;
+      --bd:    rgba(255,255,255,0.07);
+      --bd2:   rgba(255,255,255,0.12);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family:'Inter',sans-serif; background:var(--navy); color:#fff; overflow-x:hidden; }
+
+    .reveal { opacity:0; transform:translateY(24px); transition:opacity .6s ease,transform .6s ease; }
+    .reveal.in { opacity:1; transform:none; }
+    .d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+    .d4{transition-delay:.32s}.d5{transition-delay:.40s}.d6{transition-delay:.48s}
+
+    /* ── NAV ── */
+    nav {
+      position:fixed; top:0; left:0; right:0; z-index:1000;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:0 5%; height:68px;
+      background:rgba(7,16,31,.93); backdrop-filter:blur(18px);
+      border-bottom:1px solid var(--bd);
+    }
+    .nav-logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
+    .bls-mark {
+      width:38px; height:38px; border-radius:8px; background:var(--red);
+      display:flex; align-items:center; justify-content:center;
+      font-weight:900; font-size:13px; color:#fff;
+    }
+    .nav-brand strong { font-size:15px; font-weight:800; letter-spacing:-.3px; display:block; }
+    .nav-brand span   { font-size:11px; color:var(--muted); }
+    .nav-links { display:flex; align-items:center; gap:34px; }
+    .nav-links a { color:var(--off); text-decoration:none; font-size:14px; font-weight:500; opacity:.7; transition:opacity .2s; }
+    .nav-links a:hover { opacity:1; }
+    .nav-cta {
+      background:var(--red); color:#fff !important; opacity:1 !important;
+      padding:10px 22px; border-radius:6px; font-weight:700 !important; font-size:14px !important;
+      transition:background .2s,transform .15s !important;
+    }
+    .nav-cta:hover { background:var(--red2) !important; transform:translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height:100vh; padding:130px 5% 90px;
+      display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;
+      position:relative; overflow:hidden;
+    }
+    .hero-grid {
+      position:absolute; inset:0; pointer-events:none;
+      background-image:
+        linear-gradient(rgba(255,255,255,.013) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.013) 1px,transparent 1px);
+      background-size:68px 68px;
+    }
+    .hero-glow {
+      position:absolute; inset:0; pointer-events:none;
+      background:radial-gradient(ellipse 60% 55% at 68% 44%,rgba(200,32,46,.08) 0%,transparent 55%);
+    }
+    /* red accent line */
+    .hero::after {
+      content:''; position:absolute; left:0; top:0; width:3px; height:45%;
+      background:linear-gradient(to bottom,var(--red),rgba(200,32,46,0));
+    }
+    .hero-content { position:relative; z-index:2; }
+    .hero-badge {
+      display:inline-flex; align-items:center; gap:9px;
+      background:rgba(200,32,46,.1); border:1px solid rgba(200,32,46,.3);
+      border-radius:100px; padding:6px 16px 6px 10px;
+      font-size:11px; font-weight:700; letter-spacing:.9px;
+      text-transform:uppercase; color:#f87171; margin-bottom:34px;
+    }
+    .badge-dot {
+      width:8px; height:8px; background:var(--red); border-radius:50%;
+      animation:blink 2s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.75)} }
+    .hero h1 {
+      font-size:clamp(2.8rem,4.4vw,4.3rem); font-weight:900;
+      line-height:1.04; letter-spacing:-2px; margin-bottom:28px;
+    }
+    .hero h1 em { font-style:normal; color:var(--red); }
+    .hero-sub {
+      font-size:1.1rem; color:var(--muted); line-height:1.68;
+      max-width:490px; margin-bottom:46px;
+    }
+    .hero-sub strong { color:var(--off); font-weight:600; }
+    .hero-actions { display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:52px; }
+    .btn-primary {
+      background:var(--red); color:#fff; padding:14px 30px; border-radius:7px;
+      font-size:15px; font-weight:700; letter-spacing:-.2px;
+      text-decoration:none; border:none; cursor:pointer;
+      transition:background .2s,transform .15s; display:inline-block;
+    }
+    .btn-primary:hover { background:var(--red2); transform:translateY(-2px); }
+    .btn-ghost {
+      color:var(--off); border:1px solid var(--bd2); padding:14px 24px; border-radius:7px;
+      font-size:15px; font-weight:600; text-decoration:none;
+      transition:border-color .2s,color .2s; display:inline-flex; align-items:center; gap:8px;
+    }
+    .btn-ghost:hover { border-color:rgba(255,255,255,.3); color:#fff; }
+    .hero-powered { font-size:13px; color:var(--muted); display:flex; align-items:center; gap:10px; }
+    .hero-powered-sep { width:1px; height:14px; background:var(--bd2); }
+    .hero-powered a { color:var(--off); text-decoration:none; font-weight:600; }
+    .hero-powered a:hover { color:#fff; }
+
+    /* ── HERO MOCK DASHBOARD ── */
+    .hero-visual { position:relative; z-index:2; }
+    .mock-dash {
+      background:var(--n3); border:1px solid var(--bd2); border-radius:16px; overflow:hidden;
+      box-shadow:0 48px 80px rgba(0,0,0,.5);
+    }
+    .dash-bar {
+      background:var(--n4); border-bottom:1px solid var(--bd);
+      padding:11px 18px; display:flex; align-items:center; gap:10px;
+    }
+    .dash-dots { display:flex; gap:6px; }
+    .dd { width:10px; height:10px; border-radius:50%; }
+    .dr{background:#ff5f57}.dy{background:#febc2e}.dg{background:#28c840}
+    .dash-tabs { display:flex; gap:4px; margin-left:auto; }
+    .dash-tab { font-size:11px; font-weight:600; color:var(--muted); padding:4px 12px; border-radius:5px; }
+    .dash-tab.on { background:rgba(200,32,46,.15); color:#f87171; }
+    .dash-body { padding:18px; }
+    .dash-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:14px; }
+    .ds {
+      background:rgba(255,255,255,.04); border:1px solid var(--bd);
+      border-radius:8px; padding:10px 12px;
+    }
+    .ds-val { font-size:15px; font-weight:900; letter-spacing:-.5px; }
+    .g{color:#4ade80}.r{color:#f87171}.b{color:#60a5fa}.v{color:#a78bfa}
+    .ds-lbl { font-size:9px; color:var(--muted); margin-top:2px; text-transform:uppercase; letter-spacing:.5px; }
+    .dash-table {
+      background:rgba(255,255,255,.03); border:1px solid var(--bd);
+      border-radius:10px; overflow:hidden; margin-bottom:12px;
+    }
+    .dt-head {
+      display:grid; grid-template-columns:2fr 1fr 1fr 1fr;
+      padding:8px 14px; border-bottom:1px solid var(--bd);
+    }
+    .dt-th { font-size:9px; font-weight:700; letter-spacing:.8px; text-transform:uppercase; color:var(--muted); }
+    .dt-row {
+      display:grid; grid-template-columns:2fr 1fr 1fr 1fr;
+      padding:9px 14px; border-bottom:1px solid rgba(255,255,255,.04); align-items:center;
+    }
+    .dt-row:last-child{border-bottom:none}
+    .dt-td { font-size:11px; color:var(--off); }
+    .badge { display:inline-block; font-size:9px; font-weight:700; padding:2px 8px; border-radius:4px; }
+    .bs{background:rgba(74,222,128,.12);color:#4ade80}
+    .br{background:rgba(251,191,36,.12);color:#fbbf24}
+    .ba{background:rgba(96,165,250,.12);color:#60a5fa}
+    .dash-sign {
+      background:rgba(200,32,46,.07); border:1px solid rgba(200,32,46,.2);
+      border-radius:10px; padding:12px 16px;
+      display:flex; align-items:center; gap:12px;
+    }
+    .sign-ico {
+      width:32px; height:32px; border-radius:8px; background:rgba(200,32,46,.15);
+      display:flex; align-items:center; justify-content:center; flex-shrink:0;
+      color:var(--red);
+    }
+    .sign-copy { flex:1; }
+    .sign-copy h4 { font-size:12px; font-weight:700; }
+    .sign-copy p  { font-size:10px; color:var(--muted); }
+    .sign-btn {
+      background:var(--red); color:#fff; font-size:11px; font-weight:700;
+      padding:7px 13px; border-radius:5px; white-space:nowrap;
+    }
+
+    /* ── MARQUEE ── */
+    .marquee-wrap {
+      background:var(--n2); border-top:1px solid var(--bd); border-bottom:1px solid var(--bd);
+      padding:18px 0; overflow:hidden;
+    }
+    .marquee-inner { display:flex; width:max-content; animation:scroll 28s linear infinite; }
+    .marquee-inner:hover { animation-play-state:paused; }
+    @keyframes scroll { to { transform:translateX(-50%); } }
+    .marquee-item {
+      display:flex; align-items:center; gap:10px; white-space:nowrap;
+      padding:0 36px; font-size:13px; font-weight:600; color:var(--muted);
+      border-right:1px solid var(--bd);
+    }
+    .marquee-item:last-child { border-right:none; }
+    .marquee-item svg { color:rgba(255,255,255,.25); flex-shrink:0; }
+
+    /* ── STATEMENT STRIP ── */
+    .statement {
+      background:var(--n2); border-bottom:1px solid var(--bd);
+      padding:72px 5%;
+      display:flex; align-items:center; justify-content:space-between; gap:40px;
+    }
+    .statement-text {
+      font-size:clamp(1.9rem,3vw,2.8rem); font-weight:900;
+      line-height:1.12; letter-spacing:-1px; max-width:640px;
+    }
+    .statement-text em { font-style:normal; color:var(--red); display:block; }
+    .statement-cta { flex-shrink:0; }
+
+    /* ── SHARED SECTION ── */
+    .section-eyebrow {
+      font-size:11px; letter-spacing:1.6px; text-transform:uppercase;
+      color:var(--red); font-weight:700; margin-bottom:18px;
+      display:flex; align-items:center; gap:10px;
+    }
+    .section-eyebrow::before { content:''; width:18px; height:2px; background:var(--red); }
+    .section-title {
+      font-size:clamp(2rem,3.5vw,3rem); font-weight:900;
+      line-height:1.08; letter-spacing:-1px; margin-bottom:20px;
+    }
+    .section-sub { font-size:1.05rem; color:var(--muted); line-height:1.7; max-width:560px; }
+    .sh { margin-bottom:64px; }
+    .sh.c { text-align:center; }
+    .sh.c .section-sub { margin:0 auto; }
+    .sh.c .section-eyebrow { justify-content:center; }
+
+    /* ── PROBLEM ── */
+    .problem { background:var(--n3); padding:100px 5%; }
+    .two-col { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+    .challenge-list { list-style:none; margin-top:36px; }
+    .ci { display:flex; align-items:flex-start; gap:14px; padding:16px 0; border-bottom:1px solid var(--bd); }
+    .ci:last-child{border-bottom:none}
+    .x-ico {
+      width:24px; height:24px; border-radius:50%;
+      background:rgba(200,32,46,.1); border:1px solid rgba(200,32,46,.28);
+      display:flex; align-items:center; justify-content:center;
+      flex-shrink:0; margin-top:2px; color:var(--red);
+    }
+    .ci-body p { font-size:15px; color:var(--off); line-height:1.5; }
+    .ci-body small { display:block; font-size:12px; color:var(--muted); margin-top:3px; }
+    .old-wf {
+      background:var(--n4); border:1px solid var(--bd2);
+      border-radius:18px; padding:32px;
+    }
+    .old-wf-lbl { font-size:10px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:var(--muted); margin-bottom:22px; }
+    .wf-chain { display:flex; flex-direction:column; }
+    .wf-node {
+      display:flex; align-items:center; gap:14px;
+      background:rgba(255,255,255,.03); border:1px solid var(--bd);
+      border-radius:10px; padding:14px 18px; font-size:14px; color:var(--off);
+    }
+    .wf-node.b { background:rgba(200,32,46,.06); border-color:rgba(200,32,46,.25); }
+    .wf-node.b .wf-text { color:#f87171; }
+    .wf-ico { display:flex; align-items:center; justify-content:center; width:26px; flex-shrink:0; }
+    .wf-conn { padding:6px 0 6px 20px; display:flex; align-items:center; gap:10px; }
+    .wf-conn-line { width:2px; height:24px; background:linear-gradient(to bottom,rgba(200,32,46,.35),rgba(200,32,46,.08)); }
+    .wf-conn-lbl { font-size:11px; color:var(--muted); font-style:italic; }
+
+    /* ── BENTO PILLARS ── */
+    .solution { padding:100px 5%; background:var(--navy); }
+    .bento {
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:1px; background:var(--bd); border:1px solid var(--bd); border-radius:18px; overflow:hidden;
+    }
+    .bento-cell {
+      background:var(--n2); padding:40px 32px; transition:background .25s;
+    }
+    .bento-cell:hover { background:var(--n3); }
+    .bento-featured {
+      background:rgba(200,32,46,.06) !important;
+      border-bottom:2px solid var(--red);
+    }
+    .bento-featured:hover { background:rgba(200,32,46,.1) !important; }
+    .bento-cell-ico {
+      width:48px; height:48px; border-radius:12px;
+      background:rgba(200,32,46,.1); border:1px solid rgba(200,32,46,.2);
+      display:flex; align-items:center; justify-content:center;
+      color:var(--red); margin-bottom:22px;
+    }
+    .bento-cell h3 { font-size:17px; font-weight:800; letter-spacing:-.3px; margin-bottom:10px; }
+    .bento-cell p  { font-size:14px; color:var(--muted); line-height:1.65; }
+    .bento-featured h3 { font-size:19px; margin-bottom:12px; }
+    .bento-featured p  { font-size:15px; }
+    .bento-featured .bento-cell-ico { width:52px; height:52px; }
+
+    /* ── FEATURE SECTIONS ── */
+    .feat { padding:100px 5%; }
+    .feat.alt { background:var(--n2); }
+    .feat-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+    .feat-grid.rev { direction:rtl; }
+    .feat-grid.rev > * { direction:ltr; }
+    .feat-tag {
+      display:inline-block; background:rgba(200,32,46,.1); border:1px solid rgba(200,32,46,.25);
+      border-radius:4px; padding:4px 12px; margin-bottom:20px;
+      font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--red);
+    }
+    .feat-title { font-size:clamp(1.8rem,3vw,2.7rem); font-weight:900; line-height:1.08; letter-spacing:-1px; margin-bottom:20px; }
+    .feat-body { font-size:1rem; color:var(--muted); line-height:1.7; margin-bottom:32px; }
+    .feat-body strong { color:var(--off); }
+    .feat-list { list-style:none; }
+    .feat-li { display:flex; align-items:flex-start; gap:12px; padding:12px 0; border-bottom:1px solid var(--bd); font-size:14px; color:var(--off); }
+    .feat-li:last-child{border-bottom:none}
+    .ck {
+      width:20px; height:20px; border-radius:50%;
+      background:rgba(74,222,128,.1); border:1px solid rgba(74,222,128,.25);
+      display:flex; align-items:center; justify-content:center;
+      color:#4ade80; flex-shrink:0; margin-top:1px;
+    }
+    .feat-visual {
+      background:var(--n3); border:1px solid var(--bd2);
+      border-radius:16px; padding:24px;
+      box-shadow:0 30px 60px rgba(0,0,0,.4);
+    }
+    .fv-header {
+      display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;
+    }
+    .fv-title { font-size:12px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; color:var(--muted); }
+    .fv-live { display:flex; align-items:center; gap:5px; font-size:11px; color:#4ade80; font-weight:600; }
+    .fv-live-dot { width:7px; height:7px; background:#4ade80; border-radius:50%; animation:blink 2s ease-in-out infinite; }
+
+    /* Inventory mock */
+    .site-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:4px; margin-bottom:14px; }
+    .lot {
+      aspect-ratio:1.2; border-radius:4px; display:flex; align-items:center; justify-content:center;
+      font-size:9px; font-weight:700;
+    }
+    .la{background:rgba(96,165,250,.18);border:1px solid rgba(96,165,250,.35);color:#60a5fa}
+    .ls{background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);color:#f87171}
+    .lh{background:rgba(251,191,36,.15);border:1px solid rgba(251,191,36,.3);color:#fbbf24}
+    .site-legend { display:flex; gap:14px; }
+    .legend-item { display:flex; align-items:center; gap:5px; font-size:10px; color:var(--muted); }
+    .legend-dot { width:8px; height:8px; border-radius:2px; }
+    .ld-a{background:#60a5fa}.ld-s{background:#f87171}.ld-h{background:#fbbf24}
+    .inv-summary { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:16px; }
+    .inv-pill { background:rgba(255,255,255,.04); border:1px solid var(--bd); border-radius:8px; padding:12px; text-align:center; }
+    .inv-pill-num { font-size:18px; font-weight:900; }
+    .inv-pill-num.ib{color:#60a5fa}.inv-pill-num.ir{color:#f87171}.inv-pill-num.iy{color:#fbbf24}
+    .inv-pill-lbl { font-size:10px; color:var(--muted); margin-top:2px; }
+
+    /* Signing mock */
+    .ws-card { background:var(--n4); border:1px solid var(--bd); border-radius:12px; padding:20px; margin-bottom:12px; }
+    .ws-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px; }
+    .ws-field label { font-size:9px; font-weight:700; letter-spacing:.8px; text-transform:uppercase; color:var(--muted); display:block; margin-bottom:5px; }
+    .ws-input { background:rgba(255,255,255,.05); border:1px solid var(--bd2); border-radius:6px; padding:8px 12px; font-size:12px; color:var(--off); }
+    .ws-sign-area { background:rgba(255,255,255,.02); border:1px dashed rgba(255,255,255,.15); border-radius:8px; padding:16px; text-align:center; margin-top:4px; }
+    .ws-sign-area p { font-size:10px; color:var(--muted); margin-bottom:8px; }
+    .ws-sig { font-family:'Georgia',serif; font-style:italic; font-size:22px; color:var(--off); }
+    .ws-cta { width:100%; background:var(--red); color:#fff; border:none; border-radius:8px; padding:12px; font-size:13px; font-weight:700; cursor:default; font-family:inherit; margin-top:12px; }
+
+    /* ERP mock */
+    .erp-nodes { display:flex; flex-direction:column; gap:6px; }
+    .erp-node { display:flex; align-items:center; gap:14px; background:rgba(255,255,255,.04); border:1px solid var(--bd); border-radius:10px; padding:15px 20px; }
+    .erp-node.hl { background:rgba(200,32,46,.07); border-color:rgba(200,32,46,.25); }
+    .erp-ico { display:flex; align-items:center; justify-content:center; width:28px; flex-shrink:0; color:var(--muted); }
+    .erp-node.hl .erp-ico { color:var(--red); }
+    .erp-txt h5 { font-size:13px; font-weight:700; }
+    .erp-txt p  { font-size:11px; color:var(--muted); }
+    .erp-arr { padding:3px 0 3px 22px; display:flex; align-items:center; gap:8px; }
+    .erp-arr-line { flex:1; height:1px; background:linear-gradient(to right,rgba(200,32,46,.4),rgba(200,32,46,.08)); }
+    .erp-arr-head { color:var(--red); display:flex; align-items:center; }
+
+    /* ── JOURNEY ── */
+    .journey { padding:100px 5%; background:var(--n2); }
+    .journey-grid {
+      display:grid; grid-template-columns:repeat(4,1fr);
+      gap:1px; background:var(--bd); border:1px solid var(--bd); border-radius:18px; overflow:hidden;
+      margin-bottom:20px;
+    }
+    .j-step { background:var(--n3); padding:28px 18px; text-align:center; transition:background .2s; }
+    .j-step:hover { background:var(--n4); }
+    .j-num {
+      width:34px; height:34px; border-radius:50%; background:var(--red);
+      color:#fff; font-size:13px; font-weight:900;
+      display:flex; align-items:center; justify-content:center; margin:0 auto 14px;
+    }
+    .j-step h4 { font-size:13px; font-weight:800; margin-bottom:5px; }
+    .j-step p  { font-size:11px; color:var(--muted); line-height:1.45; }
+    .journey-output {
+      background:var(--n3); border:1px solid var(--bd); border-radius:18px; padding:40px;
+      display:grid; grid-template-columns:1fr 36px 1fr 36px 1fr; gap:10px; align-items:center;
+    }
+    .out-box { text-align:center; }
+    .out-ico { margin-bottom:10px; display:flex; justify-content:center; color:var(--muted); }
+    .out-box h4 { font-size:15px; font-weight:800; margin-bottom:6px; }
+    .out-box p  { font-size:12px; color:var(--muted); }
+    .out-arr { text-align:center; color:var(--red); opacity:.6; display:flex; justify-content:center; }
+
+    /* ── ENDPOINTS ── */
+    .endpoints { background:var(--n3); padding:100px 5%; }
+    .ep-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .ep-card {
+      background:var(--n2); border:1px solid var(--bd);
+      border-radius:14px; padding:32px 26px;
+      transition:border-color .2s,transform .2s,background .2s;
+    }
+    .ep-card:hover { border-color:rgba(200,32,46,.4); transform:translateY(-4px); background:var(--n4); }
+    .ep-ico-wrap {
+      width:52px; height:52px; border-radius:12px;
+      background:rgba(200,32,46,.1); border:1px solid rgba(200,32,46,.2);
+      display:flex; align-items:center; justify-content:center; color:var(--red); margin-bottom:20px;
+    }
+    .ep-card h3 { font-size:16px; font-weight:800; letter-spacing:-.3px; margin-bottom:10px; }
+    .ep-card p  { font-size:14px; color:var(--muted); line-height:1.6; }
+
+    /* ── STATS ── */
+    .stats-section { background:var(--navy); padding:100px 5%; }
+    .stats-grid {
+      display:grid; grid-template-columns:repeat(4,1fr);
+      gap:1px; background:var(--bd); border:1px solid var(--bd); border-radius:18px; overflow:hidden; margin-top:60px;
+    }
+    .stat-cell { background:var(--n2); padding:44px 32px; }
+    .stat-num { font-size:3rem; font-weight:900; letter-spacing:-2px; line-height:1; }
+    .stat-num em { font-style:normal; color:var(--red); }
+    .stat-lbl { font-size:14px; color:var(--muted); margin-top:10px; line-height:1.5; }
+
+    /* ── ADVANTAGES ── */
+    .advantages { background:var(--n2); padding:100px 5%; }
+    .adv-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
+    .adv-card { background:var(--n3); border:1px solid var(--bd); border-radius:16px; padding:36px; transition:border-color .2s; }
+    .adv-card:hover { border-color:rgba(200,32,46,.3); }
+    .adv-tag {
+      display:inline-block; background:rgba(200,32,46,.1); border:1px solid rgba(200,32,46,.25);
+      border-radius:4px; padding:3px 10px; margin-bottom:18px;
+      font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--red);
+    }
+    .adv-card h3 { font-size:18px; font-weight:800; letter-spacing:-.5px; margin-bottom:12px; }
+    .adv-card p  { font-size:14px; color:var(--muted); line-height:1.7; }
+
+    /* ── RED CTA BAND ── */
+    .cta-red {
+      background:var(--red); padding:100px 5%;
+      text-align:center; position:relative; overflow:hidden;
+    }
+    .cta-red::before {
+      content:''; position:absolute; inset:0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+      background-size:48px 48px;
+    }
+    .cta-red > * { position:relative; z-index:2; }
+    .cta-red .section-eyebrow { color:rgba(255,255,255,.7); }
+    .cta-red .section-eyebrow::before { background:rgba(255,255,255,.7); }
+    .cta-red .section-title { color:#fff; max-width:700px; margin:16px auto 24px; }
+    .cta-red .section-sub { color:rgba(255,255,255,.75); margin:0 auto 48px; }
+    .cta-actions { display:flex; justify-content:center; gap:14px; flex-wrap:wrap; }
+    .btn-white {
+      background:#fff; color:var(--red); padding:14px 30px; border-radius:7px;
+      font-size:15px; font-weight:800; letter-spacing:-.2px;
+      text-decoration:none; transition:transform .15s,background .2s; display:inline-block;
+    }
+    .btn-white:hover { background:rgba(255,255,255,.92); transform:translateY(-2px); }
+    .btn-outline-white {
+      color:#fff; border:1.5px solid rgba(255,255,255,.5); padding:14px 24px; border-radius:7px;
+      font-size:15px; font-weight:600; text-decoration:none;
+      transition:border-color .2s; display:inline-flex; align-items:center; gap:8px;
+    }
+    .btn-outline-white:hover { border-color:#fff; }
+
+    /* ── FORM ── */
+    .form-section {
+      background:var(--navy); padding:100px 5%;
+      display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start;
+    }
+    .form-section .sh { margin-bottom:0; }
+    .demo-form { background:var(--n2); border:1px solid var(--bd2); border-radius:18px; padding:44px; }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .form-group { margin-bottom:20px; }
+    .form-group label { display:block; font-size:11px; font-weight:700; letter-spacing:.8px; color:var(--muted); text-transform:uppercase; margin-bottom:8px; }
+    .form-group input,.form-group select,.form-group textarea {
+      width:100%; background:var(--n3); border:1px solid var(--bd2);
+      border-radius:8px; padding:13px 16px; color:#fff;
+      font-size:14px; font-family:'Inter',sans-serif; outline:none;
+      transition:border-color .2s; -webkit-appearance:none;
+    }
+    .form-group input::placeholder,.form-group textarea::placeholder { color:var(--muted); }
+    .form-group input:focus,.form-group select:focus,.form-group textarea:focus { border-color:rgba(200,32,46,.55); }
+    .form-group select option { background:var(--n2); }
+    .form-group textarea { min-height:110px; resize:vertical; }
+    .form-submit {
+      width:100%; background:var(--red); color:#fff; border:none;
+      border-radius:8px; padding:16px; font-size:16px; font-weight:700;
+      cursor:pointer; font-family:'Inter',sans-serif;
+      transition:background .2s,transform .15s;
+    }
+    .form-submit:hover { background:var(--red2); transform:translateY(-1px); }
+    .form-aside {
+      background:var(--n2); border:1px solid var(--bd); border-radius:14px; padding:28px; margin-top:36px;
+    }
+    .form-aside-title { font-size:15px; font-weight:700; color:var(--off); margin-bottom:16px; }
+    .form-aside-item { display:flex; align-items:flex-start; gap:10px; margin-bottom:12px; font-size:13px; color:var(--muted); line-height:1.5; }
+    .form-aside-item:last-child{margin-bottom:0}
+    .form-aside-num { color:var(--red); font-weight:800; flex-shrink:0; }
+
+    /* ── FOOTER ── */
+    footer { background:var(--n2); border-top:1px solid var(--bd); padding:72px 5% 36px; }
+    .footer-top {
+      display:grid; grid-template-columns:2.5fr 1fr 1fr 1fr;
+      gap:48px; margin-bottom:52px; padding-bottom:52px; border-bottom:1px solid var(--bd);
+    }
+    .footer-logo { display:flex; align-items:center; gap:12px; margin-bottom:18px; }
+    .footer-brand p { font-size:14px; color:var(--muted); line-height:1.65; max-width:280px; }
+    .footer-col h5 { font-size:11px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:var(--muted); margin-bottom:20px; }
+    .footer-col a { display:block; font-size:14px; color:var(--off); text-decoration:none; margin-bottom:12px; opacity:.7; transition:opacity .2s; }
+    .footer-col a:hover { opacity:1; }
+    .footer-bottom { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+    .footer-bottom p { font-size:13px; color:var(--muted); }
+    .footer-bottom a { color:var(--off); text-decoration:none; font-weight:600; }
+
+    /* ── SCREEN CAPTIONS ── */
+    .screen-wrap { position:relative; }
+    .screen-caption {
+      position:absolute; bottom:14px; left:14px; right:14px;
+      background:rgba(7,16,31,.88); backdrop-filter:blur(8px);
+      border:1px solid var(--bd2); border-radius:8px;
+      padding:10px 14px; display:flex; align-items:center; gap:10px;
+      font-size:12px; color:var(--off); pointer-events:none;
+    }
+    .screen-caption i { color:var(--muted); flex-shrink:0; }
+    .screen-caption strong { color:#fff; font-weight:700; }
+
+    /* ── SCREEN IMAGES ── */
+    .screen-frame {
+      border-radius:14px; overflow:hidden;
+      box-shadow:0 36px 72px rgba(0,0,0,.55);
+      border:1px solid var(--bd2); background:var(--n4);
+    }
+    .screen-chrome {
+      background:var(--n4); border-bottom:1px solid var(--bd);
+      padding:10px 16px; display:flex; align-items:center; gap:7px;
+    }
+    .sc-dot { width:10px; height:10px; border-radius:50%; }
+    .screen-chrome img, .screen-frame > img {
+      width:100%; display:block; vertical-align:bottom;
+    }
+    .photo-pair { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .photo-pair img { width:100%; border-radius:10px; object-fit:cover; height:240px; border:1px solid var(--bd); }
+    .journey-slide { margin-bottom:48px; }
+    .journey-slide img { width:100%; border-radius:14px; border:1px solid var(--bd2); box-shadow:0 20px 50px rgba(0,0,0,.4); display:block; }
+    .endpoints-photos { margin-bottom:64px; display:grid; grid-template-columns:1.6fr 1fr; gap:16px; border-radius:18px; overflow:hidden; }
+    .endpoints-photos img { width:100%; height:380px; object-fit:cover; display:block; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width:1100px) { .hero{grid-template-columns:1fr;} .hero-visual{display:none;} }
+    @media (max-width:900px) {
+      .two-col,.feat-grid,.form-section,.journey-output{grid-template-columns:1fr;gap:48px;}
+      .feat-grid.rev{direction:ltr;}
+      .bento{grid-template-columns:1fr;}
+      .journey-grid{grid-template-columns:repeat(2,1fr);}
+      .journey-output{grid-template-columns:1fr;}
+      .out-arr{transform:rotate(90deg);}
+      .stats-grid{grid-template-columns:repeat(2,1fr);}
+      .footer-top{grid-template-columns:1fr 1fr;}
+      .nav-links{display:none;}
+      .statement{flex-direction:column;gap:28px;}
+    }
+    @media (max-width:600px) {
+      .ep-grid,.adv-grid{grid-template-columns:1fr;}
+      .stats-grid{grid-template-columns:1fr 1fr;}
+      .form-row{grid-template-columns:1fr;}
+      .hero h1{font-size:2.7rem;}
+      .journey-grid{grid-template-columns:1fr 1fr;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="bls-mark">BLS</div>
+    <div class="nav-brand">
+      <strong>Builder Lynx Sales</strong>
+      <span>Powered by Simplii Sold</span>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="#solution">Solution</a>
+    <a href="#journey">Journey</a>
+    <a href="#endpoints">Endpoints</a>
+    <a href="#integration">Integration</a>
+    <a href="#demo" class="nav-cta">Book a Demo</a>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero" id="home">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-badge reveal">
+      <div class="badge-dot"></div>
+      Builder Lynx Sales Solution
+    </div>
+    <h1 class="reveal d1">
+      Built for Builders.<br />
+      Not for <em>Spreadsheets.</em>
+    </h1>
+    <p class="hero-sub reveal d2">
+      BLS is a <strong>digital sales platform for new home builders</strong> — managing inventory, purchasers, digital worksheets, e-signing, and ERP sync from one place. From the first lot selection to a signed APS, every step is connected.
+    </p>
+    <div class="hero-actions reveal d3">
+      <a href="#demo" class="btn-primary">Book a Demo</a>
+      <a href="#solution" class="btn-ghost">See How It Works <i data-lucide="arrow-right" width="16" height="16"></i></a>
+    </div>
+    <div class="hero-powered reveal d4">
+      <span>A product by</span>
+      <div class="hero-powered-sep"></div>
+      <a href="https://simpliisold.com" target="_blank">Simplii Sold</a>
+      <div class="hero-powered-sep"></div>
+      <span>Integrates with Builder Lynx ERP</span>
+    </div>
+  </div>
+
+  <!-- Real platform screenshot -->
+  <div class="hero-visual reveal d3">
+    <div class="screen-wrap">
+      <div class="screen-frame">
+        <div class="screen-chrome">
+          <div class="sc-dot" style="background:#ff5f57"></div>
+          <div class="sc-dot" style="background:#febc2e"></div>
+          <div class="sc-dot" style="background:#28c840"></div>
+        </div>
+        <img src="images/dashboard-admin.png" alt="BLS admin dashboard showing revenue, lot status, and live site plan" />
+      </div>
+      <div class="screen-caption">
+        <i data-lucide="layout-dashboard" width="14" height="14"></i>
+        <span><strong>BLS Admin Dashboard</strong> — Live inventory, revenue, and site plan overview</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SCROLLING MARQUEE ══ -->
+<div class="marquee-wrap">
+  <div class="marquee-inner">
+    <!-- first set -->
+    <div class="marquee-item"><i data-lucide="link-2" width="14" height="14"></i>Builder Lynx ERP</div>
+    <div class="marquee-item"><i data-lucide="link-2" width="14" height="14"></i>QuickBooks</div>
+    <div class="marquee-item"><i data-lucide="link-2" width="14" height="14"></i>Microsoft Business Central</div>
+    <div class="marquee-item"><i data-lucide="file-signature" width="14" height="14"></i>DocuSign E-Signing</div>
+    <div class="marquee-item"><i data-lucide="link-2" width="14" height="14"></i>Newstar</div>
+    <div class="marquee-item"><i data-lucide="shield-check" width="14" height="14"></i>SSL Encrypted</div>
+    <div class="marquee-item"><i data-lucide="monitor" width="14" height="14"></i>Wall Displays</div>
+    <div class="marquee-item"><i data-lucide="smartphone" width="14" height="14"></i>Mobile Ready</div>
+    <div class="marquee-item"><i data-lucide="globe" width="14" height="14"></i>Online Portal</div>
+    <div class="marquee-item"><i data-lucide="bar-chart-2" width="14" height="14"></i>Live Reporting</div>
+    <!-- duplicate for seamless loop -->
+    <div class="marquee-item"><i data-lucide="link-2" width="14" height="14"></i>Builder Lynx ERP</div>
+    <div class="marquee-item"><i data-lucide="link-2" width="14" height="14"></i>QuickBooks</div>
+    <div class="marquee-item"><i data-lucide="link-2" width="14" height="14"></i>Microsoft Business Central</div>
+    <div class="marquee-item"><i data-lucide="file-signature" width="14" height="14"></i>DocuSign E-Signing</div>
+    <div class="marquee-item"><i data-lucide="link-2" width="14" height="14"></i>Newstar</div>
+    <div class="marquee-item"><i data-lucide="shield-check" width="14" height="14"></i>SSL Encrypted</div>
+    <div class="marquee-item"><i data-lucide="monitor" width="14" height="14"></i>Wall Displays</div>
+    <div class="marquee-item"><i data-lucide="smartphone" width="14" height="14"></i>Mobile Ready</div>
+    <div class="marquee-item"><i data-lucide="globe" width="14" height="14"></i>Online Portal</div>
+    <div class="marquee-item"><i data-lucide="bar-chart-2" width="14" height="14"></i>Live Reporting</div>
+  </div>
+</div>
+
+<!-- ══ PROBLEM ══ -->
+<section class="problem" id="challenge">
+  <div class="two-col">
+    <div>
+      <p class="section-eyebrow reveal">The Industry Challenge</p>
+      <h2 class="section-title reveal d1">Your sales process is<br />leaking money.</h2>
+      <p class="section-sub reveal d2">Today's new home sales run across a patchwork of disconnected tools — spreadsheets, email chains, paper worksheets, ERPs that don't talk to each other. Every handoff is a chance for something to break.</p>
+      <ul class="challenge-list">
+        <li class="ci reveal d2">
+          <div class="x-ico"><i data-lucide="x" width="12" height="12"></i></div>
+          <div class="ci-body">
+            <p>Duplicate data entry across multiple platforms</p>
+            <small>Every deal gets typed twice — at least.</small>
+          </div>
+        </li>
+        <li class="ci reveal d3">
+          <div class="x-ico"><i data-lucide="x" width="12" height="12"></i></div>
+          <div class="ci-body">
+            <p>Sales and ERP systems with no real-time sync</p>
+            <small>Your ERP is always one step behind what actually happened.</small>
+          </div>
+        </li>
+        <li class="ci reveal d3">
+          <div class="x-ico"><i data-lucide="x" width="12" height="12"></i></div>
+          <div class="ci-body">
+            <p>Manual worksheets and approvals slow every deal down</p>
+            <small>Paper forms that get lost, scanned wrong, or re-entered badly.</small>
+          </div>
+        </li>
+        <li class="ci reveal d4">
+          <div class="x-ico"><i data-lucide="x" width="12" height="12"></i></div>
+          <div class="ci-body">
+            <p>Delayed reporting means decisions come too late</p>
+            <small>By the time the report lands, the window has already closed.</small>
+          </div>
+        </li>
+        <li class="ci reveal d4">
+          <div class="x-ico"><i data-lucide="x" width="12" height="12"></i></div>
+          <div class="ci-body">
+            <p>Administrative bottlenecks and compounding errors</p>
+            <small>The more hands touch the data, the more ways it can go wrong.</small>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="reveal d2">
+      <div class="old-wf">
+        <div class="old-wf-lbl">Typical fragmented workflow</div>
+        <div class="wf-chain">
+          <div class="wf-node">
+            <div class="wf-ico"><i data-lucide="user" width="16" height="16" style="color:var(--muted)"></i></div>
+            <div class="wf-text">Agent captures buyer info — by hand</div>
+          </div>
+          <div class="wf-conn"><div class="wf-conn-line"></div><div class="wf-conn-lbl">paper worksheet</div></div>
+          <div class="wf-node b">
+            <div class="wf-ico"><i data-lucide="clipboard" width="16" height="16" style="color:var(--red)"></i></div>
+            <div class="wf-text">Manual worksheet — prone to errors</div>
+          </div>
+          <div class="wf-conn"><div class="wf-conn-line"></div><div class="wf-conn-lbl">email to admin</div></div>
+          <div class="wf-node b">
+            <div class="wf-ico"><i data-lucide="mail" width="16" height="16" style="color:var(--red)"></i></div>
+            <div class="wf-text">Email chain — no version control</div>
+          </div>
+          <div class="wf-conn"><div class="wf-conn-line"></div><div class="wf-conn-lbl">manual re-entry</div></div>
+          <div class="wf-node b">
+            <div class="wf-ico"><i data-lucide="database" width="16" height="16" style="color:var(--red)"></i></div>
+            <div class="wf-text">ERP re-entry — duplicate data, typos</div>
+          </div>
+          <div class="wf-conn"><div class="wf-conn-line"></div><div class="wf-conn-lbl">delayed &amp; inaccurate</div></div>
+          <div class="wf-node b">
+            <div class="wf-ico"><i data-lucide="bar-chart-2" width="16" height="16" style="color:var(--red)"></i></div>
+            <div class="wf-text">Reporting — always days behind reality</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ STATEMENT STRIP ══ -->
+<section class="statement">
+  <div class="statement-text reveal">
+    Stop typing the same deal<br />into three different systems.
+    <em>There's a better way.</em>
+  </div>
+  <div class="statement-cta reveal d2">
+    <a href="#demo" class="btn-primary">Show Me →</a>
+  </div>
+</section>
+
+<!-- ══ SOLUTION BENTO ══ -->
+<section class="solution" id="solution">
+  <div class="sh">
+    <p class="section-eyebrow reveal">The BLS Solution</p>
+    <h2 class="section-title reveal d1">One platform.<br />Total control.</h2>
+    <p class="section-sub reveal d2">Configure, manage, and control every aspect of your sales operation from a single centralized platform — designed specifically for home builders.</p>
+  </div>
+  <div class="bento">
+    <!-- Featured: ERP Connectivity -->
+    <div class="bento-cell bento-featured reveal">
+      <div class="bento-cell-ico">
+        <i data-lucide="zap" width="24" height="24"></i>
+      </div>
+      <h3>ERP Connectivity</h3>
+      <p>Real-time integration with Builder Lynx ERP, QuickBooks, Business Central, and more. Data flows automatically from the signed agreement into your operations — no re-entry, ever.</p>
+    </div>
+    <!-- Inventory -->
+    <div class="bento-cell reveal d1">
+      <div class="bento-cell-ico">
+        <i data-lucide="layers" width="22" height="22"></i>
+      </div>
+      <h3>Inventory Management</h3>
+      <p>Live communities, phases, lots, models, and pricing. Always know what's available, reserved, and sold.</p>
+    </div>
+    <!-- Purchaser -->
+    <div class="bento-cell reveal d2">
+      <div class="bento-cell-ico">
+        <i data-lucide="users" width="22" height="22"></i>
+      </div>
+      <h3>Purchaser Tracking</h3>
+      <p>Every buyer interaction from first contact to final agreement in one place. Full history, zero gaps.</p>
+    </div>
+    <!-- Worksheets -->
+    <div class="bento-cell reveal d1">
+      <div class="bento-cell-ico">
+        <i data-lucide="file-text" width="22" height="22"></i>
+      </div>
+      <h3>Sales Worksheets &amp; APS</h3>
+      <p>Digital worksheets and legally binding APS packages that eliminate paper and manual entry entirely.</p>
+    </div>
+    <!-- Reporting -->
+    <div class="bento-cell reveal d2">
+      <div class="bento-cell-ico">
+        <i data-lucide="bar-chart-2" width="22" height="22"></i>
+      </div>
+      <h3>Reporting &amp; Analytics</h3>
+      <p>Custom dashboards and real-time reports. Make decisions based on live data, not last week's spreadsheet.</p>
+    </div>
+    <!-- Admin -->
+    <div class="bento-cell reveal d3">
+      <div class="bento-cell-ico">
+        <i data-lucide="sliders-horizontal" width="22" height="22"></i>
+      </div>
+      <h3>Project Administration</h3>
+      <p>Pricing, incentives, user roles, Tarion schedules, and approvals — all managed from one admin panel.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FEATURE: INVENTORY ══ -->
+<section class="feat alt" id="inventory">
+  <div class="feat-grid">
+    <div>
+      <div class="feat-tag reveal">Inventory Management</div>
+      <h2 class="feat-title reveal d1">Know exactly what's<br />available. Right now.</h2>
+      <p class="feat-body reveal d2">
+        Live inventory means your sales team and buyers are always looking at the same picture. <strong>No stale spreadsheets. No phantom reservations. No awkward calls to check availability.</strong>
+      </p>
+      <ul class="feat-list reveal d3">
+        <li class="feat-li"><div class="ck"><i data-lucide="check" width="11" height="11"></i></div>Interactive site plans with real-time lot status</li>
+        <li class="feat-li"><div class="ck"><i data-lucide="check" width="11" height="11"></i></div>Floor plan comparison and elevation management</li>
+        <li class="feat-li"><div class="ck"><i data-lucide="check" width="11" height="11"></i></div>Pricing, premiums, and incentives by lot or phase</li>
+        <li class="feat-li"><div class="ck"><i data-lucide="check" width="11" height="11"></i></div>Lot release scheduling and architectural controls</li>
+        <li class="feat-li"><div class="ck"><i data-lucide="check" width="11" height="11"></i></div>Synced live across every sales endpoint simultaneously</li>
+      </ul>
+    </div>
+    <div class="screen-wrap reveal d2">
+      <div class="screen-frame">
+        <div class="screen-chrome">
+          <div class="sc-dot" style="background:#ff5f57"></div>
+          <div class="sc-dot" style="background:#febc2e"></div>
+          <div class="sc-dot" style="background:#28c840"></div>
+        </div>
+        <img src="images/site-plan-live.png" alt="Live site plan with lot availability and model selection popup" />
+      </div>
+      <div class="screen-caption">
+        <i data-lucide="map" width="14" height="14"></i>
+        <span><strong>Live Site Plan</strong> — Click any lot to see available models and pricing instantly</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FEATURE: SIGNING ══ -->
+<section class="feat" id="signing">
+  <div class="feat-grid rev">
+    <div>
+      <div class="feat-tag reveal">Digital Worksheets &amp; APS</div>
+      <h2 class="feat-title reveal d1">No paper.<br />No re-entry.<br />No errors.</h2>
+      <p class="feat-body reveal d2">
+        BLS replaces paper worksheets with configurable digital forms — pre-populated from live inventory, validated in real time, and signed in minutes on any device.
+        <strong>Your buyers sign on a phone. Your team signs deals from anywhere.</strong>
+      </p>
+      <ul class="feat-list reveal d3">
+        <li class="feat-li"><div class="ck"><i data-lucide="check" width="11" height="11"></i></div>Configurable worksheets pre-filled from inventory data</li>
+        <li class="feat-li"><div class="ck"><i data-lucide="check" width="11" height="11"></i></div>Legally binding APS generation — no manual templates</li>
+        <li class="feat-li"><div class="ck"><i data-lucide="check" width="11" height="11"></i></div>E-signature via DocuSign — phone, tablet, or desktop</li>
+        <li class="feat-li"><div class="ck"><i data-lucide="check" width="11" height="11"></i></div>Purchaser identity verification built in</li>
+        <li class="feat-li"><div class="ck"><i data-lucide="check" width="11" height="11"></i></div>Executed documents stored, indexed, and downloadable</li>
+      </ul>
+    </div>
+    <div class="screen-wrap reveal d2">
+      <div class="screen-frame">
+        <div class="screen-chrome">
+          <div class="sc-dot" style="background:#ff5f57"></div>
+          <div class="sc-dot" style="background:#febc2e"></div>
+          <div class="sc-dot" style="background:#28c840"></div>
+        </div>
+        <img src="images/purchase-form.png" alt="Digital purchase agreement form with buyer identity verification and floor plan" />
+      </div>
+      <div class="screen-caption">
+        <i data-lucide="file-text" width="14" height="14"></i>
+        <span><strong>Purchase Agreement</strong> — Buyer details, ID verification, and floor plan on one screen</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FEATURE: REPORTING ══ -->
+<section class="feat alt" id="integration">
+  <div class="feat-grid">
+    <div>
+      <div class="feat-tag reveal">Reporting &amp; Analytics</div>
+      <h2 class="feat-title reveal d1">Know exactly what's<br />selling — and what isn't.</h2>
+      <p class="feat-body reveal d2">
+        BLS gives you live reporting across every community, phase, and model. <strong>See revenue in-flow, track model popularity, and make decisions based on what's actually happening — not last week's spreadsheet.</strong>
+      </p>
+      <ul class="feat-list reveal d3">
+        <li class="feat-li"><div class="ck"><i data-lucide="check" width="11" height="11"></i></div>Revenue in-flow and deposit tracking in real time</li>
+        <li class="feat-li"><div class="ck"><i data-lucide="check" width="11" height="11"></i></div>Model popularity by unique views and repeat visits</li>
+        <li class="feat-li"><div class="ck"><i data-lucide="check" width="11" height="11"></i></div>Lot status, availability, and sales velocity at a glance</li>
+        <li class="feat-li"><div class="ck"><i data-lucide="check" width="11" height="11"></i></div>Custom dashboards downloadable as spreadsheets</li>
+        <li class="feat-li"><div class="ck"><i data-lucide="check" width="11" height="11"></i></div>Data flows straight to Builder Lynx ERP — no re-entry</li>
+      </ul>
+    </div>
+    <div class="screen-wrap reveal d2">
+      <div class="screen-frame">
+        <div class="screen-chrome">
+          <div class="sc-dot" style="background:#ff5f57"></div>
+          <div class="sc-dot" style="background:#febc2e"></div>
+          <div class="sc-dot" style="background:#28c840"></div>
+        </div>
+        <img src="images/analytics-reporting.png" alt="Reporting dashboard showing revenue in-flow chart and model popularity analytics" />
+      </div>
+      <div class="screen-caption">
+        <i data-lucide="bar-chart-2" width="14" height="14"></i>
+        <span><strong>Analytics Dashboard</strong> — Revenue deposits and model popularity, updated live</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ JOURNEY ══ -->
+<section class="journey" id="journey">
+  <div class="sh c">
+    <p class="section-eyebrow reveal">Digital Purchaser Journey</p>
+    <h2 class="section-title reveal d1">From first look<br />to signed deal — guided.</h2>
+    <p class="section-sub reveal d2">A simple, step-by-step experience for every purchaser — from exploring the community to a legally executed APS, with clean data flowing to your ERP at the end.</p>
+  </div>
+  <div class="journey-grid">
+    <div class="j-step reveal"><div class="j-num">1</div><h4>Explore Community</h4><p>Interactive site plan with live availability</p></div>
+    <div class="j-step reveal d1"><div class="j-num">2</div><h4>Select Lot</h4><p>Real-time lot status, pricing &amp; premiums</p></div>
+    <div class="j-step reveal d2"><div class="j-num">3</div><h4>Choose Model</h4><p>Floor plans, elevations &amp; comparisons</p></div>
+    <div class="j-step reveal d3"><div class="j-num">4</div><h4>Review Pricing</h4><p>Transparent pricing with incentives applied</p></div>
+    <div class="j-step reveal"><div class="j-num">5</div><h4>Purchase Decision</h4><p>Buyer confirms selections &amp; intent</p></div>
+    <div class="j-step reveal d1"><div class="j-num">6</div><h4>Complete Forms</h4><p>Digital worksheet — no paper, no re-entry</p></div>
+    <div class="j-step reveal d2"><div class="j-num">7</div><h4>Digital Signing</h4><p>Legally binding APS, signed in minutes</p></div>
+    <div class="j-step reveal d3"><div class="j-num">8</div><h4>Data Output</h4><p>Clean data flows directly to ERP &amp; reporting</p></div>
+  </div>
+  <div class="journey-output reveal d1">
+    <div class="out-box">
+      <div class="out-ico"><i data-lucide="file-check-2" width="32" height="32"></i></div>
+      <h4>Signed APS</h4>
+      <p>Legally executed agreement, stored and ready</p>
+    </div>
+    <div class="out-arr"><i data-lucide="arrow-right" width="22" height="22"></i></div>
+    <div class="out-box">
+      <div class="out-ico"><i data-lucide="link-2" width="32" height="32"></i></div>
+      <h4>Builder Lynx ERP</h4>
+      <p>Data synced in real time — no re-entry required</p>
+    </div>
+    <div class="out-arr"><i data-lucide="arrow-right" width="22" height="22"></i></div>
+    <div class="out-box">
+      <div class="out-ico"><i data-lucide="bar-chart-2" width="32" height="32"></i></div>
+      <h4>Reporting &amp; Analytics</h4>
+      <p>Live dashboards updated the moment deals close</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ENDPOINTS ══ -->
+<section class="endpoints" id="endpoints">
+  <div class="sh">
+    <p class="section-eyebrow reveal">Digital Sales Endpoints</p>
+    <h2 class="section-title reveal d1">One platform.<br />Every purchaser touchpoint.</h2>
+    <p class="section-sub reveal d2">Deploy BLS wherever your buyers engage — from the sales centre floor to a buyer's living room. One data source. No gaps. No duplication.</p>
+  </div>
+  <div class="endpoints-photos reveal">
+    <img src="images/sales-centre-1.jpeg" alt="BLS sales centre with interactive kiosk, wall displays, and site plan table" />
+    <img src="images/sales-centre-2.jpeg" alt="Sales centre wall displays showing home renderings and floor plans" />
+  </div>
+  <div class="ep-grid">
+    <div class="ep-card reveal">
+      <div class="ep-ico-wrap"><i data-lucide="monitor" width="24" height="24"></i></div>
+      <h3>Wall Displays</h3>
+      <p>Large-format interactive displays for your sales centre — real-time inventory, site plans, and availability at a glance.</p>
+    </div>
+    <div class="ep-card reveal d1">
+      <div class="ep-ico-wrap"><i data-lucide="smartphone" width="24" height="24"></i></div>
+      <h3>Tablets &amp; Mobile</h3>
+      <p>Your agents close deals anywhere. Full platform access on any device — show plans, capture worksheets, sign on the spot.</p>
+    </div>
+    <div class="ep-card reveal d2">
+      <div class="ep-ico-wrap"><i data-lucide="layout-dashboard" width="24" height="24"></i></div>
+      <h3>Sales Centre Kiosks</h3>
+      <p>Self-service touchpoints let purchasers explore inventory independently — driving engagement before an agent steps in.</p>
+    </div>
+    <div class="ep-card reveal d3">
+      <div class="ep-ico-wrap"><i data-lucide="laptop" width="24" height="24"></i></div>
+      <h3>Desktop Presentations</h3>
+      <p>Full-screen, presentation-ready views for in-person meetings. Everything your team needs, one screen, zero scrambling.</p>
+    </div>
+    <div class="ep-card reveal d4">
+      <div class="ep-ico-wrap"><i data-lucide="globe" width="24" height="24"></i></div>
+      <h3>Online Purchaser Portal</h3>
+      <p>Let buyers explore, compare, and start a purchase from home. Remote sales — without losing control of the process.</p>
+    </div>
+    <div class="ep-card reveal d5">
+      <div class="ep-ico-wrap"><i data-lucide="map" width="24" height="24"></i></div>
+      <h3>Interactive Site Plan</h3>
+      <p>Live, dynamic site plans show availability, sold units, and hold status — in real time across every endpoint at once.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ STATS ══ -->
+<section class="stats-section" id="stats">
+  <div class="sh c">
+    <p class="section-eyebrow reveal">Why BLS</p>
+    <h2 class="section-title reveal d1">The numbers don't lie.</h2>
+    <p class="section-sub reveal d2">BLS is built on the proven foundation of Simplii Sold — trusted by builders and realtors across Canada to sell new homes faster, smarter, and with fewer headaches.</p>
+  </div>
+  <div class="stats-grid">
+    <div class="stat-cell reveal">
+      <div class="stat-num"><em>↓</em> 100%</div>
+      <div class="stat-lbl">Duplicate data entry eliminated across sales and ERP</div>
+    </div>
+    <div class="stat-cell reveal d1">
+      <div class="stat-num">8<em>×</em></div>
+      <div class="stat-lbl">Faster intake — capture purchaser info in minutes, not hours</div>
+    </div>
+    <div class="stat-cell reveal d2">
+      <div class="stat-num"><em>1</em></div>
+      <div class="stat-lbl">Platform for every touchpoint — sales, admin, ERP, reporting</div>
+    </div>
+    <div class="stat-cell reveal d3">
+      <div class="stat-num">Real<em>‑</em>time</div>
+      <div class="stat-lbl">Data sync from platform to ERP the moment deals close</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ADVANTAGES ══ -->
+<section class="advantages" id="advantages">
+  <div class="sh c">
+    <p class="section-eyebrow reveal">The BLS Advantage</p>
+    <h2 class="section-title reveal d1">Faster. Cleaner. Connected.</h2>
+  </div>
+  <div class="adv-grid">
+    <div class="adv-card reveal">
+      <div class="adv-tag">Faster</div>
+      <h3>Capture leads in minutes. Not days.</h3>
+      <p>Streamlined digital forms and guided workflows mean your team captures complete, accurate purchaser information in a fraction of the time — with no back-and-forth email chains required.</p>
+    </div>
+    <div class="adv-card reveal d1">
+      <div class="adv-tag">Accurate</div>
+      <h3>Eliminate manual entry and the errors that come with it.</h3>
+      <p>Validated digital data flows directly from the buyer experience into your ERP. One source of truth across your entire organization — sales, admin, construction, and accounting.</p>
+    </div>
+    <div class="adv-card reveal d2">
+      <div class="adv-tag">Connected</div>
+      <h3>Your systems. Finally talking to each other.</h3>
+      <p>BLS connects the buyer journey, your sales team, your documents, your ERP, and your accounting platform into one continuous, automated workflow — with no integration headaches.</p>
+    </div>
+    <div class="adv-card reveal d3">
+      <div class="adv-tag">Scalable</div>
+      <h3>Built for launch day. And every day after.</h3>
+      <p>Handle high-volume launch events and complex multi-phase projects with ease. One platform, branded to your community, that scales with you — without the operational chaos.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ RED CTA ══ -->
+<section class="cta-red">
+  <p class="section-eyebrow reveal" style="justify-content:center;">Let's build the future together</p>
+  <h2 class="section-title reveal d1">Ready to stop losing deals<br />to a broken process?</h2>
+  <p class="section-sub reveal d2">Discover how BLS can streamline your sales, improve operational accuracy, and create a connected workflow from first lot selection to ERP — without disrupting what you already have.</p>
+  <div class="cta-actions reveal d3">
+    <a href="#demo" class="btn-white">Book a Demo</a>
+    <a href="#solution" class="btn-outline-white">Explore Features <i data-lucide="arrow-right" width="16" height="16"></i></a>
+  </div>
+</section>
+
+<!-- ══ FORM ══ -->
+<div class="form-section" id="demo">
+  <div class="sh">
+    <p class="section-eyebrow reveal">Get Started</p>
+    <h2 class="section-title reveal d1">See BLS<br />in action.</h2>
+    <p class="section-sub reveal d2">Tell us a little about your project and we'll set up a personalized demo tailored to your workflow. No obligations — just a better way to sell.</p>
+    <div class="form-aside reveal d3">
+      <div class="form-aside-title">What to expect:</div>
+      <div class="form-aside-item"><span class="form-aside-num">01.</span>A personalized walkthrough of BLS tailored to your workflow</div>
+      <div class="form-aside-item"><span class="form-aside-num">02.</span>A review of how BLS integrates with your current ERP</div>
+      <div class="form-aside-item"><span class="form-aside-num">03.</span>A clear picture of what implementation looks like for your team</div>
+      <div class="form-aside-item"><span class="form-aside-num">04.</span>Answers to every question — no pressure, no obligation</div>
+    </div>
+  </div>
+  <div class="demo-form reveal d1">
+    <div class="form-row">
+      <div class="form-group"><label>First Name</label><input type="text" placeholder="Jane" /></div>
+      <div class="form-group"><label>Last Name</label><input type="text" placeholder="Smith" /></div>
+    </div>
+    <div class="form-group"><label>Company / Builder Name</label><input type="text" placeholder="Smith Homes" /></div>
+    <div class="form-row">
+      <div class="form-group"><label>Email</label><input type="email" placeholder="jane@smithhomes.com" /></div>
+      <div class="form-group"><label>Phone</label><input type="tel" placeholder="+1 (416) 000-0000" /></div>
+    </div>
+    <div class="form-group">
+      <label>I Am A</label>
+      <select>
+        <option value="">Select your role</option>
+        <option>New Home Builder</option>
+        <option>Sales Manager / Director</option>
+        <option>Account Manager / Admin</option>
+        <option>Realtor / Broker</option>
+        <option>IT / Systems Manager</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Current ERP / System</label>
+      <select>
+        <option value="">Select your ERP</option>
+        <option>Builder Lynx</option>
+        <option>QuickBooks</option>
+        <option>Microsoft Business Central</option>
+        <option>Newstar</option>
+        <option>Other / Not Sure</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Tell Us About Your Project</label>
+      <textarea placeholder="Type of project, number of units, current pain points…"></textarea>
+    </div>
+    <button class="form-submit">Book My Demo →</button>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <div class="bls-mark">BLS</div>
+        <div>
+          <div style="font-weight:800;font-size:15px;letter-spacing:-.3px;">Builder Lynx Sales</div>
+          <div style="font-size:11px;color:var(--muted);">Powered by Simplii Sold</div>
+        </div>
+      </div>
+      <p>One connected workflow from first lot selection to ERP — designed specifically for today's home builders.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Platform</h5>
+      <a href="#solution">Solution Overview</a>
+      <a href="#inventory">Inventory</a>
+      <a href="#signing">Worksheets &amp; Signing</a>
+      <a href="#integration">ERP Integration</a>
+      <a href="#journey">Purchaser Journey</a>
+      <a href="#endpoints">Sales Endpoints</a>
+    </div>
+    <div class="footer-col">
+      <h5>Powered By</h5>
+      <a href="https://simpliisold.com" target="_blank">Simplii Sold</a>
+      <a href="https://simpliisold.com/#features-trusted" target="_blank">Platform Features</a>
+      <a href="https://simpliisold.com/#packages" target="_blank">Packages</a>
+    </div>
+    <div class="footer-col">
+      <h5>Get Started</h5>
+      <a href="#demo">Book a Demo</a>
+      <a href="https://simpliisold.com/#contact" target="_blank">Contact Us</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Builder Lynx Sales Solution. All rights reserved.</p>
+    <p>Powered by <a href="https://simpliisold.com" target="_blank">Simplii Sold</a> · Built by <a href="https://www.maverickgraphics.com" target="_blank">Maverick Graphics Inc.</a></p>
+  </div>
+</footer>
+
+<script>
+  lucide.createIcons();
+
+  const observer = new IntersectionObserver(
+    entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }),
+    { threshold:0.1, rootMargin:'0px 0px -40px 0px' }
+  );
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.background = window.scrollY > 40
+      ? 'rgba(7,16,31,.97)'
+      : 'rgba(7,16,31,.93)';
+  });
+</script>
+</body>
+</html>
